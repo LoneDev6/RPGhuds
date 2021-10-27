@@ -16,9 +16,6 @@ commands:
     description: Main plugin command.
     usage: /rpghuds <action> <hud> [user]
 permissions:
-  rpghuds.hud.money:
-    description: Permission to see the money HUD.
-    default: true
   rpghuds.show:
     description: Permission to use the command /rpghuds show <hud> on themselves.
   rpghuds.hide:
