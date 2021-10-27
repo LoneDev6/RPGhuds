@@ -1,0 +1,12 @@
+info:
+  namespace: rpghuds
+huds:
+  compass:
+    enabled: true
+    show:
+      auto: false
+    type: CUSTOM
+    x_position_pixels: -8
+    value:
+      player_stat_name: "compass"
+      start: 0

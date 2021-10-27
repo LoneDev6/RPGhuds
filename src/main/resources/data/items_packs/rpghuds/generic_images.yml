@@ -1,0 +1,11 @@
+info:
+  namespace: rpghuds
+font_images:
+  shift_1:
+    suggest_in_command: false
+    path: "shift_1.png"
+    y_position: -1337
+  shift_2:
+    suggest_in_command: false
+    path: "shift_2.png"
+    y_position: -1337

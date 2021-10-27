@@ -1,0 +1,37 @@
+name: RPGhuds
+version: 1.0.0
+main: dev.lone.rpghuds.Main
+api-version: 1.13
+depend:
+  - ItemsAdder
+  - PlaceholderAPI
+  - Vault
+commands:
+  rpgcompass:
+    aliases: [rh]
+    description: Custom compass command.
+    usage: /rpgcompass <player> <set|remove> <world> <x> <y> <z>
+  rpghuds:
+    aliases: [rh]
+    description: Main plugin command.
+    usage: /rpghuds <action> <hud> [user]
+permissions:
+  rpghuds.hud.money:
+    description: Permission to see the money HUD.
+    default: true
+  rpghuds.show:
+    description: Permission to use the command /rpghuds show <hud> on themselves.
+  rpghuds.hide:
+    description: Permission to use the command /rpghuds hide <hud> on themselves.
+  rpghuds.show.others:
+    description: Permission to use the command /rpghuds hide <hud> <player> on other players.
+  rpghuds.hide.others:
+    description: Permission to use the command /rpghuds hide <hud> <player> on other players.
+  rpghuds.compass.set:
+    description: Permission to use the command /rpgcompass set on themselves.
+  rpghuds.compass.remove:
+    description: Permission to use the command /rpgcompass remove on themselves.
+  rpghuds.compass.set.others:
+    description: Permission to use the command /rpgcompass set on other players.
+  rpghuds.compass.remove.others:
+    description: Permission to use the command /rpgcompass remove on other players.

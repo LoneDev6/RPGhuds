@@ -1,0 +1,23 @@
+huds_refresh_interval_ticks: 30
+huds_high_frequency_refresh_interval_ticks: 1
+money:
+  enabled: true
+  # All money playerholders: https://github.com/PlaceholderAPI/PlaceholderAPI/wiki/Placeholders#vault
+  papi_placeholder: "%vault_eco_balance_formatted%"
+  worlds:
+    - world
+    - world_nether
+    - world_the_end
+compass:
+  enabled: true
+  worlds:
+    - world
+    - world_nether
+    - world_the_end
+lang:
+  hud_not_found: "&6Hud not found!"
+  wrong_usage: "&cWrong command usage."
+  destination_set: "&aDestination set."
+  destination_removed: "&7Destination removed."
+log:
+  debug: false
