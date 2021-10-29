@@ -30,34 +30,33 @@ public class PlayerData
 
     public void refreshAllHuds()
     {
-        boolean refreshedAny = false;
-        for (Hud<?> hud : allHuds)
-        {
-            if (hud.refreshRender() == Hud.RenderAction.RENDERED)
-                refreshedAny = true;
-        }
-
-        if (refreshedAny)
-        {
-            holder.recalculateOffsets();
-            holder.sendUpdate();
-        }
+        refreshHuds(allHuds);
     }
 
     public void refreshHighFrequency()
     {
-        boolean refreshedAny = false;
+        refreshHuds(hudsHighFreq);
+    }
+
+    private void refreshHuds(List<Hud<?>> hudsHighFreq)
+    {
+        boolean changedRenderAny = false;
+        boolean asBeforeAny = false;
         for (Hud<?> hud : hudsHighFreq)
         {
             if (hud.refreshRender() == Hud.RenderAction.RENDERED)
-                refreshedAny = true;
+                changedRenderAny = true;
+            if (hud.refreshRender() == Hud.RenderAction.SAME_AS_BEFORE)
+                asBeforeAny = true;
         }
 
-        if (refreshedAny)
+        if (changedRenderAny)
         {
             holder.recalculateOffsets();
             holder.sendUpdate();
         }
+        if(asBeforeAny)
+            holder.sendUpdate();
     }
 
     public void cleanup()
