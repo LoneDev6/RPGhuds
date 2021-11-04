@@ -40,6 +40,8 @@ public class RPGHuds
 
     boolean needsIaZip;
     boolean notifyIazip;
+
+    //TODO: recode this shit. Very dirty
     private final List<String> hudsNames = Arrays.asList("rpghuds:money", "rpghuds:compass");
 
     public RPGHuds(Main plugin)
@@ -50,7 +52,7 @@ public class RPGHuds
 
         new EventsListener(plugin, this);
 
-        extractDefaultStuff();
+        extractDefaultAssets();
 
         if (ItemsAdder.areItemsLoaded() && !needsIaZip)
             initAllPlayers();
@@ -61,7 +63,7 @@ public class RPGHuds
         return instance;
     }
 
-    // very dirty
+    //TODO: recode this shit. Very dirty
     public List<String> getHudsNames()
     {
         return hudsNames;
@@ -102,7 +104,8 @@ public class RPGHuds
         try
         {
             playerData = new PlayerData(new PlayerHudsHolderWrapper(player));
-            //very dirty
+
+            //TODO: recode this shit. Very dirty
             if (Main.settings.moneyEnabled)
             {
                 playerData.registerHud(new MoneyHud(
@@ -122,28 +125,28 @@ public class RPGHuds
                                 "rpghuds:money_digit_7",
                                 "rpghuds:money_digit_8",
                                 "rpghuds:money_digit_9",
-                                "rpghuds:money_unknown_char",
-                                "rpghuds:money_digit_k",
-                                "rpghuds:money_digit_m",
-                                "rpghuds:money_digit_b",
-                                "rpghuds:money_digit_t",
-                                "rpghuds:money_digit_dot",
-                                "rpghuds:money_digit_comma",
+                                "rpghuds:money_char_unknown",
+                                "rpghuds:money_char_k",
+                                "rpghuds:money_char_m",
+                                "rpghuds:money_char_b",
+                                "rpghuds:money_char_t",
+                                "rpghuds:money_char_dot",
+                                "rpghuds:money_char_comma",
                                 Main.settings.moneyWorlds
                         )
                 ), false);
             }
 
-            //very dirty
+            //TODO: recode this shit. Very dirty
             if (Main.settings.compassEnabled)
             {
                 playerData.registerHud(new CompassHud(
                         Main.settings.refreshIntervalTicks,
                         playerData.getHolder(),
-                        new CompassSettings( //TODO: change to CompassGraphics
-                                             "rpghuds:compass",
-                                             "rpghuds:hud_compass_",
-                                             Main.settings.compassWorlds
+                        new CompassSettings(
+                                "rpghuds:compass",
+                                "rpghuds:hud_compass_",
+                                Main.settings.compassWorlds
                         )
                 ), true);
             }
@@ -156,6 +159,10 @@ public class RPGHuds
             System.out.println("Failed to load PlayerData: " + exc.getMessage());
         }
     }
+
+    //TODO: implement animated icons.
+    // Warning: make sure to increment the refresh rate only when it's actually needed by the animation.
+    // I don't want the plugin to become heavy just for a stupid animation.
 
     private void scheduleRefresh()
     {
@@ -188,7 +195,7 @@ public class RPGHuds
         datasByPlayer.clear();
     }
 
-    private void extractDefaultStuff()
+    private void extractDefaultAssets()
     {
         CodeSource src = Main.class.getProtectionDomain().getCodeSource();
         if (src != null)

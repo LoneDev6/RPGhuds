@@ -8,7 +8,4 @@ huds:
     type: CUSTOM
     x_position_pixels: 90
     value:
-      player_stat_name: "money"
-      start: 0
-      min: 0
-      max: 0
+      player_stat_name: "dummy_money"

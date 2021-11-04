@@ -27,12 +27,7 @@ public class EventsUtil
     {
         Bukkit.getPluginManager().callEvent(e);
         if (e instanceof Cancellable)
-        {
             return !((Cancellable) e).isCancelled();
-        }
-        else
-        {
-            return true;
-        }
+        return true;
     }
 }

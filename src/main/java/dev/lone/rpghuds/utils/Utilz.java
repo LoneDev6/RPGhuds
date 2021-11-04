@@ -13,9 +13,7 @@ public class Utilz
         {
             return Integer.parseInt(number);
         }
-        catch (Exception ignored)
-        {
-        }
+        catch (Exception ignored){}
         return defaultValue;
     }
 }

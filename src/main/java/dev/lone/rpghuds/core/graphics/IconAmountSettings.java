@@ -20,13 +20,13 @@ public abstract class IconAmountSettings extends HudSettings
     public final FontImageWrapper digit_7;
     public final FontImageWrapper digit_8;
     public final FontImageWrapper digit_9;
-    public final FontImageWrapper unknown_char;
-    private final FontImageWrapper digitK;
-    private final FontImageWrapper digitM;
-    private final FontImageWrapper digitB;
-    private final FontImageWrapper digitT;
-    private final FontImageWrapper digitDot;
-    private final FontImageWrapper digitComma;
+    public final FontImageWrapper char_unknown;
+    private final FontImageWrapper char_k;
+    private final FontImageWrapper char_m;
+    private final FontImageWrapper char_b;
+    private final FontImageWrapper char_t;
+    private final FontImageWrapper char_dot;
+    private final FontImageWrapper char_comma;
 
     IconAmountSettings(String namespacedID,
                               String icon,
@@ -40,13 +40,13 @@ public abstract class IconAmountSettings extends HudSettings
                               String digit_7,
                               String digit_8,
                               String digit_9,
-                              String unknown_char,
-                              String digitK,
-                              String digitM,
-                              String digitB,
-                              String digitT,
-                              String digitDot,
-                              String digitComma,
+                              String char_unknown,
+                              String char_k,
+                              String char_m,
+                              String char_b,
+                              String char_t,
+                              String char_dot,
+                              String char_comma,
                               HashSet<String> worlds
     ) throws NullPointerException
     {
@@ -62,16 +62,21 @@ public abstract class IconAmountSettings extends HudSettings
         this.digit_7 = getFontImage(digit_7);
         this.digit_8 = getFontImage(digit_8);
         this.digit_9 = getFontImage(digit_9);
-        this.unknown_char = getFontImage(unknown_char);
-        this.digitK = getFontImage(digitK);
-        this.digitM = getFontImage(digitM);
-        this.digitB = getFontImage(digitB);
-        this.digitT = getFontImage(digitT);
-        this.digitDot = getFontImage(digitDot);
-        this.digitComma = getFontImage(digitComma);
+        this.char_unknown = getFontImage(char_unknown);
+        this.char_k = getFontImage(char_k);
+        this.char_m = getFontImage(char_m);
+        this.char_b = getFontImage(char_b);
+        this.char_t = getFontImage(char_t);
+        this.char_dot = getFontImage(char_dot);
+        this.char_comma = getFontImage(char_comma);
     }
 
-    public List<FontImageWrapper> amountToImages(String amount, List<FontImageWrapper> list)
+    /**
+     * Appends the FontImages representation of the provided amount String to the provided FontImages list.
+     * @param amount amount string (example: 25.3M)
+     * @param list FontImages list of the HUD.
+     */
+    public void amountToImages(String amount, List<FontImageWrapper> list)
     {
         for (int i = 0; i < amount.length(); i++)
         {
@@ -110,31 +115,30 @@ public abstract class IconAmountSettings extends HudSettings
                     break;
                 case 'k':
                 case 'K':
-                    list.add(digitK);
+                    list.add(char_k);
                     break;
                 case 'm':
-                case 'M':
-                    list.add(digitM);
+                case 'M': //TODO: handle uppercase/lowercase with different image?
+                    list.add(char_m);
                     break;
                 case 'b':
-                case 'B':
-                    list.add(digitB);
+                case 'B': //TODO: handle uppercase/lowercase with different image?
+                    list.add(char_b);
                     break;
                 case 't':
-                case 'T':
-                    list.add(digitT);
+                case 'T': //TODO: handle uppercase/lowercase with different image?
+                    list.add(char_t);
                     break;
                 case '.':
-                    list.add(digitDot);
+                    list.add(char_dot);
                     break;
                 case ',':
-                    list.add(digitComma);
+                    list.add(char_comma);
                     break;
                 default:
-                    list.add(unknown_char);
+                    list.add(char_unknown);
                     break;
             }
         }
-        return list;
     }
 }

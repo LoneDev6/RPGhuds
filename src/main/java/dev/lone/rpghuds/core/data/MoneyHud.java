@@ -50,7 +50,7 @@ public class MoneyHud extends PAPIHud<MoneySettings>
             return RenderAction.SKIP;
         }
 
-        //TODO: abstract logic: HudDataProvider ???
+        //TODO: better abstract logic: HudDataProvider ???
         String amount = PlaceholderAPI.setPlaceholders(holder.getPlayer(), placeholder);
         if (amount.equals(prevAmount))
             return RenderAction.SAME_AS_BEFORE;

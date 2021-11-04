@@ -6,7 +6,14 @@ import dev.lone.rpghuds.core.Settings;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class Main extends JavaPlugin implements Listener //TODO: update the ItemsAdder API in pom.xml
+/**
+ * This is a proof of concept, feel free to modify it and help me to make it better.
+ *
+ * NOTE: make sure your code is optimized, I don't care about clean code just to feel cool or edgy.
+ * If it's heavier than the actual design please don't make any change.
+ * Make sure your changes are actually optimized and perfectly usable in a large scale server.
+ */
+public final class Main extends JavaPlugin implements Listener
 {
     private static Main instance;
     public static Settings settings;

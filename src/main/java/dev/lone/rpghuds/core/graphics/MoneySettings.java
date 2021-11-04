@@ -16,13 +16,13 @@ public class MoneySettings extends IconAmountSettings
                          String digit_7,
                          String digit_8,
                          String digit_9,
-                         String unknown_char,
-                         String digitK,
-                         String digitM,
-                         String digitB,
-                         String digitT,
-                         String digitDot,
-                         String digitComma,
+                         String char_unknown,
+                         String char_k,
+                         String char_m,
+                         String char_b,
+                         String char_t,
+                         String char_dot,
+                         String char_comma,
                          HashSet<String> worlds
     )
     {
@@ -39,13 +39,13 @@ public class MoneySettings extends IconAmountSettings
                 digit_7,
                 digit_8,
                 digit_9,
-                unknown_char,
-                digitK,
-                digitM,
-                digitB,
-                digitT,
-                digitDot,
-                digitComma,
+                char_unknown,
+                char_k,
+                char_m,
+                char_b,
+                char_t,
+                char_dot,
+                char_comma,
                 worlds
         );
     }

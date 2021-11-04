@@ -45,31 +45,31 @@ font_images:
     suggest_in_command: false
     path: "money/digit_9"
     y_position: -7
-  money_digit_k:
+  money_char_k:
     suggest_in_command: false
-    path: "money/digit_k"
+    path: "money/char_k"
     y_position: -7
-  money_digit_m:
+  money_char_m:
     suggest_in_command: false
-    path: "money/digit_m"
+    path: "money/char_m"
     y_position: -7
-  money_digit_b:
+  money_char_b:
     suggest_in_command: false
-    path: "money/digit_b"
+    path: "money/char_b"
     y_position: -7
-  money_digit_t:
+  money_char_t:
     suggest_in_command: false
-    path: "money/digit_t"
+    path: "money/char_t"
     y_position: -7
-  money_digit_dot:
+  money_char_dot:
     suggest_in_command: false
-    path: "money/digit_dot"
+    path: "money/char_dot"
     y_position: -7
-  money_digit_comma:
+  money_char_comma:
     suggest_in_command: false
-    path: "money/digit_comma"
+    path: "money/char_comma"
     y_position: -7
-  money_unknown_char:
+  money_char_unknown:
     suggest_in_command: false
-    path: "money/unknown_char"
+    path: "money/char_unknown"
     y_position: -7

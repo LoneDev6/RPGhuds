@@ -1,4 +1,4 @@
-huds_refresh_interval_ticks: 30
+huds_refresh_interval_ticks: 15
 huds_high_frequency_refresh_interval_ticks: 1
 money:
   enabled: true
