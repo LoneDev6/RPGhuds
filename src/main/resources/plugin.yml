@@ -1,5 +1,5 @@
 name: RPGhuds
-version: 1.0.0-beta4
+version: 1.0.0-beta5
 main: dev.lone.rpghuds.Main
 api-version: 1.13
 depend:
@@ -8,11 +8,9 @@ depend:
   - Vault
 commands:
   rpgcompass:
-    aliases: [rh]
     description: Custom compass command.
     usage: /rpgcompass <player> <set|remove> <world> <x> <y> <z>
   rpghuds:
-    aliases: [rh]
     description: Main plugin command.
     usage: /rpghuds <action> <hud> [user]
 permissions:

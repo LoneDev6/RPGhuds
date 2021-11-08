@@ -17,6 +17,7 @@ public class MoneyHud extends PAPIHud<MoneySettings>
 
     private final PlayerHudsHolderWrapper holder;
     private final PlayerCustomHudWrapper hud;
+    private final int initialOffset;
 
     private final Player player;
 
@@ -36,6 +37,7 @@ public class MoneyHud extends PAPIHud<MoneySettings>
 
         this.hud = graphics.newInstanceByPlayer(holder);
         this.player = holder.getPlayer();
+        this.initialOffset = hud.getInitialOffsetX();
 
         this.shift_1 = getFontImage("rpghuds:shift_1");
         this.shift_2 = getFontImage("rpghuds:shift_2");
@@ -80,7 +82,7 @@ public class MoneyHud extends PAPIHud<MoneySettings>
 
         hud.setFontImages(imgsBuffer);
 
-        int offset = hud.getInitialOffsetX();
+        int offset = initialOffset;
         for (FontImageWrapper img : imgsBuffer)
             offset -= img.getWidth();
         hud.setOffsetX(offset);
