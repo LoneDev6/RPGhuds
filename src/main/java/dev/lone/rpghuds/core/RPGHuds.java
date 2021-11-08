@@ -156,7 +156,7 @@ public class RPGHuds
         }
         catch (NullPointerException exc)
         {
-            System.out.println("Failed to load PlayerData: " + exc.getMessage());
+            Main.inst().getLogger().severe(ChatColor.RED + "Failed to load PlayerData: " + exc.getMessage());
         }
     }
 

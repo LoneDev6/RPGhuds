@@ -62,6 +62,12 @@ public class Commands implements CommandExecutor, TabCompleter
         {
             case "rpghuds":
             {
+                if(args.length < 2)
+                {
+                    sender.sendMessage(Main.settings.msgWrongUsage);
+                    return true;
+                }
+
                 Player player;
                 if (args.length == 3)
                 {
