@@ -24,8 +24,18 @@ class EventsListener implements Listener
         this.plugin = plugin;
         this.rpgHuds = rpgHuds;
         this.itemsAdderLoadListener = new ItemsAdderLoadListener(plugin, rpgHuds);
+    }
 
+    public void registerListener()
+    {
         EventsUtil.registerEventOnce(this, plugin);
+        itemsAdderLoadListener.registerListener();
+
+        if(Main.settings.quiverEnabled)
+            new QuiverHudListener(plugin, rpgHuds, Main.settings.quiverContentUpdateTicks).registerListener();
+
+        if(Main.settings.arrowTargetEnabled)
+            new ArrowTargetHudListener(plugin, rpgHuds).registerListener();
     }
 
     @EventHandler

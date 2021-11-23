@@ -2,6 +2,7 @@ huds_refresh_interval_ticks: 15
 huds_high_frequency_refresh_interval_ticks: 1
 money:
   enabled: true
+  offset: 88
   # All money playerholders: https://github.com/PlaceholderAPI/PlaceholderAPI/wiki/Placeholders#vault
   papi_placeholder: "%vault_eco_balance_formatted%"
   worlds:
@@ -10,6 +11,24 @@ money:
     - world_the_end
 compass:
   enabled: true
+  offset: 6
+  worlds:
+    - world
+    - world_nether
+    - world_the_end
+quiver:
+  enabled: true
+  offset:
+    normal: -96
+    when_offhand_shown: -124
+  content_update_ticks: 100
+  worlds:
+    - world
+    - world_nether
+    - world_the_end
+arrow_target:
+  enabled: true
+  offset: -98
   worlds:
     - world
     - world_nether

@@ -1,14 +1,15 @@
 package dev.lone.rpghuds.core.data;
 
-import dev.lone.rpghuds.core.graphics.IconAmountSettings;
+import dev.lone.itemsadder.api.FontImages.PlayerHudsHolderWrapper;
+import dev.lone.rpghuds.core.settings.HudSettings;
 
-public abstract class PAPIHud<T extends IconAmountSettings> extends Hud<T>
+public abstract class PAPIHud<T extends HudSettings> extends Hud<T>
 {
     public String placeholder;
 
-    public PAPIHud(String placeholder, long refreshIntervalTicks)
+    public PAPIHud(String placeholder, PlayerHudsHolderWrapper holder, T settings)
     {
-        super(refreshIntervalTicks);
+        super(holder, settings);
         this.placeholder = placeholder;
     }
 }

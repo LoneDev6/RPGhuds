@@ -1,0 +1,8 @@
+info:
+  namespace: rpghuds
+huds:
+  arrow_target:
+    enabled: true
+    show:
+      auto: false
+    type: CUSTOM

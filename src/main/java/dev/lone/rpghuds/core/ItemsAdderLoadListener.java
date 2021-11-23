@@ -17,6 +17,10 @@ public class ItemsAdderLoadListener implements Listener
     {
         this.plugin = plugin;
         this.rpgHuds = rpgHuds;
+    }
+
+    public void registerListener()
+    {
         EventsUtil.registerEventOnce(this, plugin);
     }
 
@@ -26,6 +30,7 @@ public class ItemsAdderLoadListener implements Listener
         plugin.getLogger().log(Level.INFO, "RPGhuds - ItemsAdder finished loading");
         rpgHuds.needsIaZip = false;
 
+        rpgHuds.cleanup();
         rpgHuds.initAllPlayers();
     }
 }

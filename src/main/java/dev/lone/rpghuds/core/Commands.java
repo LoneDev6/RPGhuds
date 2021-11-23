@@ -60,8 +60,25 @@ public class Commands implements CommandExecutor, TabCompleter
     {
         switch (command.getName())
         {
+            // Recode this shit
             case "rpghuds":
             {
+                if(args.length == 1 && args[0].equals("reload"))
+                {
+                    if(sender.hasPermission("rpghuds.reload"))
+                    {
+                        Main.inst().reloadPlugin();
+                        Main.inst().getLogger().info(ChatColor.GREEN + "Reloaded");
+                        if(sender instanceof Player)
+                            sender.sendMessage(ChatColor.GREEN + "Reloaded");
+                    }
+                    else
+                    {
+                        sender.sendMessage(ChatColor.RED + "No permission " + "rpghuds.reload");
+                    }
+                    return true;
+                }
+
                 if(args.length < 2)
                 {
                     sender.sendMessage(Main.settings.msgWrongUsage);
@@ -95,11 +112,11 @@ public class Commands implements CommandExecutor, TabCompleter
                 {
                     case "show":
                         if (hasPerm(sender, player, "rpghuds.show"))
-                            playerHud.hidden = false;
+                            playerHud.hide(false);
                         break;
                     case "hide":
                         if (hasPerm(sender, player, "rpghuds.hide"))
-                            playerHud.hidden = true;
+                            playerHud.hide(true);
                         break;
                 }
                 break;
@@ -169,7 +186,12 @@ public class Commands implements CommandExecutor, TabCompleter
             case "rpghuds":
             {
                 if (args.length == 1)
+                {
+                    if(sender.hasPermission("rpghuds.reload"))
+                        return Arrays.asList("reload", "show", "hide");
                     return Arrays.asList("show", "hide");
+                }
+
                 if (args.length == 2)
                     return RPGHuds.inst().getHudsNames();
                 if (args.length == 3)

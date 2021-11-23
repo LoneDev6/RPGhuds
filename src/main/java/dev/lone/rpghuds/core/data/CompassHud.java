@@ -1,10 +1,9 @@
 package dev.lone.rpghuds.core.data;
 
 import dev.lone.itemsadder.api.FontImages.FontImageWrapper;
-import dev.lone.itemsadder.api.FontImages.PlayerCustomHudWrapper;
 import dev.lone.itemsadder.api.FontImages.PlayerHudsHolderWrapper;
 import dev.lone.rpghuds.Main;
-import dev.lone.rpghuds.core.graphics.CompassSettings;
+import dev.lone.rpghuds.core.settings.CompassSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -14,67 +13,53 @@ import org.jetbrains.annotations.Nullable;
 
 public class CompassHud extends Hud<CompassSettings>
 {
-    private final PlayerHudsHolderWrapper holder;
-    private final PlayerCustomHudWrapper hud;
+    private static final double MAGIC_NUMBER = 11;
 
     private final Player player;
 
     private Location prevLoc;
     private int prevIndex = -999;
-    private FontImageWrapper prevImg;
 
     Destination destination;
 
     BukkitTask endSchedule;
 
-    public CompassHud(long refreshIntervalTicks,
-                      PlayerHudsHolderWrapper holder,
+    public CompassHud(PlayerHudsHolderWrapper holder,
                       CompassSettings settings) throws NullPointerException
     {
-        super(refreshIntervalTicks);
-        this.holder = holder;
-        this.hudSettings = settings;
-
-        hud = settings.newInstanceByPlayer(holder);
+        super(holder, settings);
         player = holder.getPlayer();
 
+        // To init the size of the buffer and avoid NullPointerException
         imgsBuffer.add(settings.compassIcons.get(0));
+        hud.setVisible(true);
     }
 
     @Override
-    public RenderAction refreshRender()
+    public RenderAction refreshRender(boolean force)
     {
         if(endSchedule != null && !endSchedule.isCancelled())
-            return RenderAction.SKIP;
+            return RenderAction.HIDDEN;
 
-        if (destination == null)
-        {
-            if (prevImg == hudSettings.iconNothing)
-                return RenderAction.SAME_AS_BEFORE;
-            setImg(hudSettings.iconNothing);
-            return RenderAction.RENDERED;
-        }
-
-        hud.setVisible(!hidden);
-        if (hidden)
-            return RenderAction.SKIP;
+        if (hidden || destination == null)
+            return RenderAction.HIDDEN;
 
         if (!hudSettings.worlds.contains(player.getWorld().getName()))
         {
             hud.setVisible(false);
-            return RenderAction.SKIP;
+            return RenderAction.HIDDEN;
         }
 
         if (dirtyEquals(prevLoc, player.getLocation()))
             return RenderAction.SAME_AS_BEFORE;
 
         if (player.getLocation().getWorld() == null)
-            return RenderAction.SKIP;
+            return RenderAction.HIDDEN;
 
         if (!player.getLocation().getWorld().equals(destination.loc.getWorld()))
         {
             setImg(hudSettings.iconDiffWorld);
-            return RenderAction.RENDERED;
+            return RenderAction.SEND_REFRESH;
         }
 
         if (player.getLocation().distance(destination.loc) <= 2)
@@ -87,11 +72,11 @@ public class CompassHud extends Hud<CompassSettings>
                 endSchedule.cancel();
                 endSchedule = null;
             }, 20 * 4);
-            return RenderAction.RENDERED;
+            return RenderAction.SEND_REFRESH;
         }
 
         double angle = getAngle();
-        int iconIndex = (int) (angle / 11);
+        int iconIndex = (int) (angle / MAGIC_NUMBER);
         if (iconIndex == prevIndex)
             return RenderAction.SAME_AS_BEFORE;
 
@@ -100,27 +85,34 @@ public class CompassHud extends Hud<CompassSettings>
 
         prevLoc = player.getLocation();
 
-        return RenderAction.RENDERED;
+        return RenderAction.SEND_REFRESH;
+    }
+
+    @Override
+    public RenderAction refreshRender()
+    {
+        return refreshRender(false);
     }
 
     @Override
     public void deleteRender()
     {
         hud.clearFontImagesAndRefresh();
+
+        if(endSchedule != null)
+           endSchedule.cancel();
+        endSchedule = null;
     }
 
     private void setImg(FontImageWrapper img)
     {
         imgsBuffer.set(0, img);
-        hud.clearFontImagesAndRefresh();
         hud.setFontImages(imgsBuffer);
-        prevImg = img;
     }
 
     private double getAngle()
     {
         Location startLoc = player.getEyeLocation();
-        destination.loc.setY(startLoc.getY());
         // vector: start to destination
         Vector b = destination.loc.toVector().subtract(startLoc.toVector()).normalize();
         // vector: start to looking direction (a.length == b.length)
@@ -131,6 +123,8 @@ public class CompassHud extends Hud<CompassSettings>
     public void removeDestination()
     {
         destination = null;
+        hud.clearFontImagesAndRefresh();
+        holder.sendUpdate();
     }
 
     public void setDestination(Destination destination)
@@ -138,8 +132,7 @@ public class CompassHud extends Hud<CompassSettings>
         this.destination = destination;
 
         refreshRender();
-        holder.recalculateOffsets();
-        holder.sendUpdate();
+        PlayerData.sendPacket(holder, true);
     }
 
     public static double calculateAngleBetweenVectors(Vector a, Vector b)

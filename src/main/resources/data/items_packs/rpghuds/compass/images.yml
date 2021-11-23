@@ -1,0 +1,139 @@
+info:
+  namespace: rpghuds
+font_images:
+  hud_compass_diff_world:
+    suggest_in_command: false
+    path: compass/compass_diff_world
+    y_position: -14
+  hud_compass_reached:
+    suggest_in_command: false
+    path: compass/compass_reached
+    y_position: -14
+  hud_compass_00:
+    suggest_in_command: false
+    path: compass/compass_00
+    y_position: -14
+  hud_compass_01:
+    suggest_in_command: false
+    path: compass/compass_01
+    y_position: -14
+  hud_compass_02:
+    suggest_in_command: false
+    path: compass/compass_02
+    y_position: -14
+  hud_compass_03:
+    suggest_in_command: false
+    path: compass/compass_03
+    y_position: -14
+  hud_compass_04:
+    suggest_in_command: false
+    path: compass/compass_04
+    y_position: -14
+  hud_compass_05:
+    suggest_in_command: false
+    path: compass/compass_05
+    y_position: -14
+  hud_compass_06:
+    suggest_in_command: false
+    path: compass/compass_06
+    y_position: -14
+  hud_compass_07:
+    suggest_in_command: false
+    path: compass/compass_07
+    y_position: -14
+  hud_compass_08:
+    suggest_in_command: false
+    path: compass/compass_08
+    y_position: -14
+  hud_compass_09:
+    suggest_in_command: false
+    path: compass/compass_09
+    y_position: -14
+  hud_compass_10:
+    suggest_in_command: false
+    path: compass/compass_10
+    y_position: -14
+  hud_compass_11:
+    suggest_in_command: false
+    path: compass/compass_11
+    y_position: -14
+  hud_compass_12:
+    suggest_in_command: false
+    path: compass/compass_12
+    y_position: -14
+  hud_compass_13:
+    suggest_in_command: false
+    path: compass/compass_13
+    y_position: -14
+  hud_compass_14:
+    suggest_in_command: false
+    path: compass/compass_14
+    y_position: -14
+  hud_compass_15:
+    suggest_in_command: false
+    path: compass/compass_15
+    y_position: -14
+  hud_compass_16:
+    suggest_in_command: false
+    path: compass/compass_16
+    y_position: -14
+  hud_compass_17:
+    suggest_in_command: false
+    path: compass/compass_17
+    y_position: -14
+  hud_compass_18:
+    suggest_in_command: false
+    path: compass/compass_18
+    y_position: -14
+  hud_compass_19:
+    suggest_in_command: false
+    path: compass/compass_19
+    y_position: -14
+  hud_compass_20:
+    suggest_in_command: false
+    path: compass/compass_20
+    y_position: -14
+  hud_compass_21:
+    suggest_in_command: false
+    path: compass/compass_21
+    y_position: -14
+  hud_compass_22:
+    suggest_in_command: false
+    path: compass/compass_22
+    y_position: -14
+  hud_compass_23:
+    suggest_in_command: false
+    path: compass/compass_23
+    y_position: -14
+  hud_compass_24:
+    suggest_in_command: false
+    path: compass/compass_24
+    y_position: -14
+  hud_compass_25:
+    suggest_in_command: false
+    path: compass/compass_25
+    y_position: -14
+  hud_compass_26:
+    suggest_in_command: false
+    path: compass/compass_26
+    y_position: -14
+  hud_compass_27:
+    suggest_in_command: false
+    path: compass/compass_27
+    y_position: -14
+  hud_compass_28:
+    suggest_in_command: false
+    path: compass/compass_28
+    y_position: -14
+  hud_compass_29:
+    suggest_in_command: false
+    path: compass/compass_29
+    y_position: -14
+  hud_compass_30:
+    suggest_in_command: false
+    path: compass/compass_30
+    y_position: -14
+  hud_compass_31:
+    suggest_in_command: false
+    path: compass/compass_31
+    y_position: -14

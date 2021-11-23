@@ -3,12 +3,11 @@ package dev.lone.rpghuds.core;
 import dev.lone.itemsadder.api.FontImages.PlayerHudsHolderWrapper;
 import dev.lone.itemsadder.api.ItemsAdder;
 import dev.lone.rpghuds.Main;
-import dev.lone.rpghuds.core.data.CompassHud;
-import dev.lone.rpghuds.core.data.Hud;
-import dev.lone.rpghuds.core.data.MoneyHud;
-import dev.lone.rpghuds.core.data.PlayerData;
-import dev.lone.rpghuds.core.graphics.CompassSettings;
-import dev.lone.rpghuds.core.graphics.MoneySettings;
+import dev.lone.rpghuds.core.data.*;
+import dev.lone.rpghuds.core.settings.ArrowTargetSettings;
+import dev.lone.rpghuds.core.settings.CompassSettings;
+import dev.lone.rpghuds.core.settings.MoneySettings;
+import dev.lone.rpghuds.core.settings.QuiverSettings;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -36,13 +35,15 @@ public class RPGHuds
     private final Main plugin;
     private final HashMap<Player, PlayerData> datasByPlayer = new HashMap<>();
     private final List<PlayerData> datas = new ArrayList<>();
-    private List<BukkitTask> refreshTasks = new ArrayList<>();
+    private final List<BukkitTask> refreshTasks = new ArrayList<>();
 
     boolean needsIaZip;
     boolean notifyIazip;
+    private boolean allPlayersInitialized;
 
     //TODO: recode this shit. Very dirty
-    private final List<String> hudsNames = Arrays.asList("rpghuds:money", "rpghuds:compass");
+    private final List<String> hudsNames = Arrays.asList("rpghuds:money", "rpghuds:compass", "rpghuds:quiver", "rpghuds:arrow_target");
+
 
     public RPGHuds(Main plugin)
     {
@@ -50,7 +51,7 @@ public class RPGHuds
 
         this.plugin = plugin;
 
-        new EventsListener(plugin, this);
+        new EventsListener(plugin, this).registerListener();
 
         extractDefaultAssets();
 
@@ -75,22 +76,22 @@ public class RPGHuds
         PlayerData playerData = datasByPlayer.get(player);
         if (playerData == null)
             return null;
-
-        for (Hud<?> hud : playerData.allHuds)
-        {
-            if (hud.hudSettings.namespacedID.equals(namespacedID))
-                return hud;
-        }
-        return null;
+        return playerData.allHuds_byNamespacedId.get(namespacedID);
     }
 
-    void initAllPlayers()
+    public void initAllPlayers()
     {
+        if(allPlayersInitialized)
+        {
+            plugin.getLogger().severe("Error: players already initialized! Be sure to first call RPGHuds#cleanup().");
+            return;
+        }
         try
         {
             for (Player player : Bukkit.getServer().getOnlinePlayers())
                 initPlayer(player);
             scheduleRefresh();
+            allPlayersInitialized = true;
         }
         catch (NullPointerException e)
         {
@@ -110,7 +111,6 @@ public class RPGHuds
             {
                 playerData.registerHud(new MoneyHud(
                         Main.settings.moneyPapi,
-                        Main.settings.refreshIntervalTicks,
                         playerData.getHolder(),
                         new MoneySettings(
                                 "rpghuds:money",
@@ -132,6 +132,9 @@ public class RPGHuds
                                 "rpghuds:money_char_t",
                                 "rpghuds:money_char_dot",
                                 "rpghuds:money_char_comma",
+                                "rpghuds:money_char_arrow_up",
+                                "rpghuds:money_char_arrow_down",
+                                Main.settings.moneyOffset,
                                 Main.settings.moneyWorlds
                         )
                 ), false);
@@ -141,14 +144,68 @@ public class RPGHuds
             if (Main.settings.compassEnabled)
             {
                 playerData.registerHud(new CompassHud(
-                        Main.settings.refreshIntervalTicks,
                         playerData.getHolder(),
                         new CompassSettings(
                                 "rpghuds:compass",
                                 "rpghuds:hud_compass_",
+                                Main.settings.compassOffset,
                                 Main.settings.compassWorlds
                         )
                 ), true);
+            }
+
+            //TODO: recode this shit. Very dirty
+            if (Main.settings.quiverEnabled)
+            {
+                playerData.registerHud(new QuiverHud(
+                        playerData.getHolder(),
+                        new QuiverSettings(
+                                "rpghuds:quiver",
+                                "rpghuds:quiver",
+                                "rpghuds:quiver_half",
+                                "rpghuds:quiver_empty",
+                                "rpghuds:quiver_digit_0",
+                                "rpghuds:quiver_digit_1",
+                                "rpghuds:quiver_digit_2",
+                                "rpghuds:quiver_digit_3",
+                                "rpghuds:quiver_digit_4",
+                                "rpghuds:quiver_digit_5",
+                                "rpghuds:quiver_digit_6",
+                                "rpghuds:quiver_digit_7",
+                                "rpghuds:quiver_digit_8",
+                                "rpghuds:quiver_digit_9",
+                                "rpghuds:quiver_char_unknown",
+                                Main.settings.quiverOffset,
+                                Main.settings.quiverOffsetWhenOffhandShown,
+                                Main.settings.quiverWorlds
+                        )
+                ), false);
+            }
+
+            //TODO: recode this shit. Very dirty
+            if (Main.settings.quiverEnabled)
+            {
+                playerData.registerHud(new ArrowTargetHud(
+                        playerData.getHolder(),
+                        new ArrowTargetSettings(
+                                "rpghuds:arrow_target",
+                                "rpghuds:arrow_target",
+                                "rpghuds:arrow_target_digit_0",
+                                "rpghuds:arrow_target_digit_1",
+                                "rpghuds:arrow_target_digit_2",
+                                "rpghuds:arrow_target_digit_3",
+                                "rpghuds:arrow_target_digit_4",
+                                "rpghuds:arrow_target_digit_5",
+                                "rpghuds:arrow_target_digit_6",
+                                "rpghuds:arrow_target_digit_7",
+                                "rpghuds:arrow_target_digit_8",
+                                "rpghuds:arrow_target_digit_9",
+                                "rpghuds:arrow_target_char_unknown",
+                                "rpghuds:arrow_target_char_percentage",
+                                Main.settings.arrowTargetOffset,
+                                Main.settings.arrowTargetWorlds
+                        )
+                ), false);
             }
 
             datasByPlayer.put(player, playerData);
@@ -182,6 +239,7 @@ public class RPGHuds
         for (BukkitTask task : refreshTasks)
             task.cancel();
         refreshTasks.clear();
+        allPlayersInitialized = false;
     }
 
     public void cleanup()

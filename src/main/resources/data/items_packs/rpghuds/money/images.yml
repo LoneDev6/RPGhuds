@@ -1,0 +1,83 @@
+info:
+  namespace: rpghuds
+font_images:
+  money_icon:
+    suggest_in_command: false
+    path: money/money_icon
+    y_position: -7
+  money_char_arrow_up:
+    suggest_in_command: false
+    path: money/char_arrow_up
+    y_position: -7
+  money_char_arrow_down:
+    suggest_in_command: false
+    path: money/char_arrow_down
+    y_position: -7
+  money_digit_0:
+    suggest_in_command: false
+    path: generic_chars/digit_0
+    y_position: -7
+  money_digit_1:
+    suggest_in_command: false
+    path: generic_chars/digit_1
+    y_position: -7
+  money_digit_2:
+    suggest_in_command: false
+    path: generic_chars/digit_2
+    y_position: -7
+  money_digit_3:
+    suggest_in_command: false
+    path: generic_chars/digit_3
+    y_position: -7
+  money_digit_4:
+    suggest_in_command: false
+    path: generic_chars/digit_4
+    y_position: -7
+  money_digit_5:
+    suggest_in_command: false
+    path: generic_chars/digit_5
+    y_position: -7
+  money_digit_6:
+    suggest_in_command: false
+    path: generic_chars/digit_6
+    y_position: -7
+  money_digit_7:
+    suggest_in_command: false
+    path: generic_chars/digit_7
+    y_position: -7
+  money_digit_8:
+    suggest_in_command: false
+    path: generic_chars/digit_8
+    y_position: -7
+  money_digit_9:
+    suggest_in_command: false
+    path: generic_chars/digit_9
+    y_position: -7
+  money_char_k:
+    suggest_in_command: false
+    path: generic_chars/char_k
+    y_position: -7
+  money_char_m:
+    suggest_in_command: false
+    path: generic_chars/char_m
+    y_position: -7
+  money_char_b:
+    suggest_in_command: false
+    path: generic_chars/char_b
+    y_position: -7
+  money_char_t:
+    suggest_in_command: false
+    path: generic_chars/char_t
+    y_position: -7
+  money_char_dot:
+    suggest_in_command: false
+    path: generic_chars/char_dot
+    y_position: -7
+  money_char_comma:
+    suggest_in_command: false
+    path: generic_chars/char_comma
+    y_position: -7
+  money_char_unknown:
+    suggest_in_command: false
+    path: generic_chars/char_unknown
+    y_position: -7

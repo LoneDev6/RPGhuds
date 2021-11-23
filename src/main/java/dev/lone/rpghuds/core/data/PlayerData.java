@@ -3,11 +3,13 @@ package dev.lone.rpghuds.core.data;
 import dev.lone.itemsadder.api.FontImages.PlayerHudsHolderWrapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class PlayerData
 {
     private final PlayerHudsHolderWrapper holder;
+    public final HashMap<String, Hud<?>> allHuds_byNamespacedId = new HashMap<>();
     public final List<Hud<?>> allHuds = new ArrayList<>();
     private final List<Hud<?>> hudsHighFreq = new ArrayList<>();
 
@@ -21,6 +23,7 @@ public class PlayerData
         if (highFrequency)
             hudsHighFreq.add(hud);
         allHuds.add(hud);
+        allHuds_byNamespacedId.put(hud.hudSettings.namespacedID, hud);
     }
 
     public PlayerHudsHolderWrapper getHolder()
@@ -38,32 +41,33 @@ public class PlayerData
         refreshHuds(hudsHighFreq);
     }
 
-    private void refreshHuds(List<Hud<?>> hudsHighFreq)
+    private void refreshHuds(List<Hud<?>> huds)
     {
         boolean changedRenderAny = false;
-        boolean asBeforeAny = false;
-        for (Hud<?> hud : hudsHighFreq)
+        for (Hud<?> hud : huds)
         {
-            if (hud.refreshRender() == Hud.RenderAction.RENDERED)
+            if (hud.refreshRender() == Hud.RenderAction.SEND_REFRESH)
                 changedRenderAny = true;
-            if (hud.refreshRender() == Hud.RenderAction.SAME_AS_BEFORE)
-                asBeforeAny = true;
         }
 
-        if (changedRenderAny)
-        {
+        if(changedRenderAny)
+            sendPacket(holder, true);
+    }
+
+    public static void sendPacket(PlayerHudsHolderWrapper holder, boolean recalculateOffsets)
+    {
+        if(recalculateOffsets)
             holder.recalculateOffsets();
-            holder.sendUpdate();
-        }
-        if(asBeforeAny)
-            holder.sendUpdate();
+        holder.sendUpdate();
     }
 
     public void cleanup()
     {
         for (Hud<?> hud : allHuds)
-        {
             hud.deleteRender();
-        }
+
+        allHuds.clear();
+        hudsHighFreq.clear();
+        allHuds_byNamespacedId.clear();
     }
 }
