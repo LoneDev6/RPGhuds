@@ -11,7 +11,7 @@ money:
     - world_the_end
 compass:
   enabled: true
-  offset: 6
+  offset: -8
   worlds:
     - world
     - world_nether
