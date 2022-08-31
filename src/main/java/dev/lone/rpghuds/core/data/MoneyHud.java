@@ -83,7 +83,8 @@ public class MoneyHud extends PAPIHud<MoneySettings>
         if (!forceRender && currentArrow == null && amount.equals(prevAmount))
             return RenderAction.SAME_AS_BEFORE;
 
-        //TODO: Shit, recode this. PAPI doesn't allow me to preemptively check if a placeholder is working or not.
+        //TODO: Shit, recode this.
+        // PAPI doesn't allow me to preemptively check if a placeholder is working or not.
         if(!HAS_CHECKED_PLACEHOLDER && amount.equals(placeholder))
         {
             Main.inst().getLogger().severe(
@@ -105,7 +106,6 @@ public class MoneyHud extends PAPIHud<MoneySettings>
         imgsBuffer.add(hudSettings.icon);
 
         hud.setFontImages(imgsBuffer);
-
         adjustOffset();
 
         prevAmount = amount;
