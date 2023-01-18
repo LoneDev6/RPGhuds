@@ -5,4 +5,5 @@ huds:
     enabled: true
     show:
       auto: false
+      underwater: false
     type: CUSTOM

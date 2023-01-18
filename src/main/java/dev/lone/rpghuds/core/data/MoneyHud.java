@@ -49,7 +49,7 @@ public class MoneyHud extends PAPIHud<MoneySettings>
         if (hidden)
             return RenderAction.HIDDEN;
 
-        if (!hudSettings.worlds.contains(player.getWorld().getName()))
+        if (!hudSettings.isEnabledInWorld(player.getWorld()))
         {
             hud.setVisible(false); //I think this will cause problems
             return RenderAction.HIDDEN;

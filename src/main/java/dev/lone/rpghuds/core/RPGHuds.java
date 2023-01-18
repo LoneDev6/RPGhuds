@@ -273,7 +273,7 @@ public class RPGHuds
                     if (e == null)
                         break;
                     String name = e.getName();
-                    if (!e.isDirectory() && name.startsWith("data/"))
+                    if (!e.isDirectory() && name.startsWith("contents/"))
                     {
                         File dest = new File(itemsadderRoot, name);
                         if (!dest.exists())

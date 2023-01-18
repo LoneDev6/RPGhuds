@@ -63,6 +63,10 @@ public abstract class Hud<T extends HudSettings>
         for (FontImageWrapper img : imgsBuffer)
             offset -= img.getWidth();
         hud.setOffsetX(offset);
+
+        // To refresh calculations
+        // (to fix this https://github.com/LoneDev6/RPGhuds/issues/11)
+        PlayerData.sendPacket(holder, true);
     }
 
     enum RenderAction

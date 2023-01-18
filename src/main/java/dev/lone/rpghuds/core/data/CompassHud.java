@@ -44,7 +44,7 @@ public class CompassHud extends Hud<CompassSettings>
         if (hidden || destination == null)
             return RenderAction.HIDDEN;
 
-        if (!hudSettings.worlds.contains(player.getWorld().getName()))
+        if (!hudSettings.isEnabledInWorld(player.getWorld()))
         {
             hud.setVisible(false);
             return RenderAction.HIDDEN;

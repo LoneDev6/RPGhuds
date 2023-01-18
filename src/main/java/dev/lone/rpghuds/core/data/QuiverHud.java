@@ -49,7 +49,7 @@ public class QuiverHud extends Hud<QuiverSettings>
         if (!forceRender && arrows == prevArrows)
             return RenderAction.SAME_AS_BEFORE;
 
-        if (!hudSettings.worlds.contains(player.getWorld().getName()))
+        if (!hudSettings.isEnabledInWorld(player.getWorld()))
         {
             hud.setVisible(false);
             return RenderAction.HIDDEN;
