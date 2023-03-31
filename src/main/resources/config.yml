@@ -1,5 +1,6 @@
 huds_refresh_interval_ticks: 15
 huds_high_frequency_refresh_interval_ticks: 1
+legacy_1_18_and_lower_textures: false
 money:
   enabled: true
   offset: 91

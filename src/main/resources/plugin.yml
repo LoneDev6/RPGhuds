@@ -1,5 +1,5 @@
 name: RPGhuds
-version: 1.2.0
+version: 1.2.0-r2
 main: dev.lone.rpghuds.Main
 api-version: 1.13
 depend:

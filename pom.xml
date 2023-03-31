@@ -6,7 +6,7 @@
 
     <groupId>RPGhuds</groupId>
     <artifactId>RPGhuds</artifactId>
-    <version>1.0.1</version>
+    <version>1.2.0-r2</version>
     <packaging>jar</packaging>
 
     <name>RPGhuds</name>

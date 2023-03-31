@@ -272,20 +272,35 @@ public class RPGHuds
                     ZipEntry e = zip.getNextEntry();
                     if (e == null)
                         break;
+
                     String name = e.getName();
-                    if (!e.isDirectory() && name.startsWith("contents/"))
+                    if (!e.isDirectory())
                     {
-                        File dest = new File(itemsadderRoot, name);
-                        if (!dest.exists())
+                        if (name.startsWith("contents/rpghuds/configs"))
                         {
-                            FileUtils.copyInputStreamToFile(plugin.getResource(name), dest);
-                            plugin.getLogger().info(ChatColor.AQUA + "       - Extracted " + name);
-                            needsIaZip = true;
+                            doExtractFile(itemsadderRoot, name, name);
+                        }
+                        else
+                        {
+                            if (Main.settings.legacyTextures)
+                            {
+                                if (name.startsWith("contents/rpghuds/textures_legacy"))
+                                {
+                                    doExtractFile(itemsadderRoot, name, name.replace("textures_legacy", "textures"));
+                                }
+                            }
+                            else
+                            {
+                                if (name.startsWith("contents/rpghuds/textures_new"))
+                                {
+                                    doExtractFile(itemsadderRoot, name, name.replace("textures_new", "textures"));
+                                }
+                            }
                         }
                     }
                 }
-                plugin.getLogger().info(ChatColor.GREEN + "DONE extracting assets!");
 
+                plugin.getLogger().info(ChatColor.GREEN + "DONE extracting assets!");
             }
             catch (IOException e)
             {
@@ -297,5 +312,16 @@ public class RPGHuds
         notifyIazip = needsIaZip;
         if (needsIaZip)
             plugin.getLogger().warning(WARNING);
+    }
+
+    private void doExtractFile(File itemsadderRoot, String name, String destName) throws IOException
+    {
+        File dest = new File(itemsadderRoot, destName);
+        if (!dest.exists())
+        {
+            FileUtils.copyInputStreamToFile(plugin.getResource(name), dest);
+            plugin.getLogger().info(ChatColor.AQUA + "       - Extracted " + destName);
+            needsIaZip = true;
+        }
     }
 }

@@ -15,6 +15,7 @@ public class Settings
     public String moneyPapi;
     public long refreshIntervalTicks;
     public long refreshHighFrequencyIntervalTicks;
+    public boolean legacyTextures;
     public int moneyOffset;
     public HashSet<String> moneyWorlds;
 
@@ -42,6 +43,7 @@ public class Settings
     {
         this.refreshIntervalTicks = config.getLong("huds_refresh_interval_ticks", 30);
         this.refreshHighFrequencyIntervalTicks = config.getLong("huds_high_frequency_refresh_interval_ticks", 2);
+        this.legacyTextures = config.getBoolean("legacy_1_18_and_lower_textures", false);
 
         this.moneyEnabled = config.getBoolean("money.enabled", true);
         this.moneyPapi = config.getString("money.papi_placeholder", "%vault_eco_balance_fixed%");

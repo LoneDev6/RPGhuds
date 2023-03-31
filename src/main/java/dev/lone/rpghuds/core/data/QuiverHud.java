@@ -16,6 +16,7 @@ public class QuiverHud extends Hud<QuiverSettings>
     private boolean hasWeapon;
 
     private boolean hiddenNoWeapon;
+    private boolean quiverHudManuallyHidden;
 
     public QuiverHud(PlayerHudsHolderWrapper holder,
                      QuiverSettings settings) throws NullPointerException
@@ -23,6 +24,7 @@ public class QuiverHud extends Hud<QuiverSettings>
         super(holder, settings);
 
         this.player = holder.getPlayer();
+        this.quiverHudManuallyHidden = false;
 
         updateOffsetX();
         hud.setOffsetX(initialXOffset);
@@ -30,7 +32,8 @@ public class QuiverHud extends Hud<QuiverSettings>
         calculateHasWeapon();
         calculateArrows();
 
-        hud.setVisible(true);
+        if(!refreshOnWeaponHold(player.getInventory().getItemInMainHand()))
+            refreshOnWeaponHold(player.getInventory().getItemInOffHand());
     }
 
     @Override
@@ -42,7 +45,7 @@ public class QuiverHud extends Hud<QuiverSettings>
     @Override
     public RenderAction refreshRender(boolean forceRender)
     {
-        if (hidden || hiddenNoWeapon)
+        if (quiverHudManuallyHidden || hidden || hiddenNoWeapon)
             return RenderAction.HIDDEN;
 
         //TODO: better abstract logic: HudDataProvider ???
@@ -95,9 +98,27 @@ public class QuiverHud extends Hud<QuiverSettings>
     }
 
     /**
+     * Override it to allow the /rpghuds hide command to work otherwise it won't work because the method
+     * refreshOnWeaponHold would just instantly make the hud shown again.
+     */
+    @Override
+    public void hide(boolean hide)
+    {
+        quiverHudManuallyHidden = hide;
+
+        if(hide)
+            hud.setVisible(false);
+        else
+        {
+            if (!refreshOnWeaponHold(player.getInventory().getItemInMainHand()))
+                refreshOnWeaponHold(player.getInventory().getItemInOffHand());
+        }
+    }
+
+    /**
      * Called when the player holds a weapon which can shoot arrows.
      */
-    public void refreshOnWeaponHold(ItemStack weapon)
+    public boolean refreshOnWeaponHold(ItemStack weapon)
     {
         hasWeapon = weapon != null && isWeapon(weapon.getType());
         if(!hasWeapon)
@@ -107,10 +128,15 @@ public class QuiverHud extends Hud<QuiverSettings>
         updateOffsetX();
 
         hiddenNoWeapon = !hasWeapon;
-        hud.setVisible(hasWeapon);
 
-        refreshRender(true);
-        PlayerData.sendPacket(holder, true);
+        if(!quiverHudManuallyHidden)
+        {
+            hud.setVisible(hasWeapon);
+            refreshRender(true);
+            PlayerData.sendPacket(holder, true);
+        }
+
+        return hasWeapon;
     }
 
     public void refreshArrows()
@@ -119,7 +145,8 @@ public class QuiverHud extends Hud<QuiverSettings>
         updateOffsetX();
 
         refreshRender(true);
-        PlayerData.sendPacket(holder, true);
+        if(!quiverHudManuallyHidden)
+            PlayerData.sendPacket(holder, true);
     }
 
     public void refreshArrowsAdjust(int changeFactor)
@@ -129,7 +156,8 @@ public class QuiverHud extends Hud<QuiverSettings>
             arrows = 0;
         updateOffsetX();
         refreshRender();
-        PlayerData.sendPacket(holder, true);
+        if(!quiverHudManuallyHidden)
+            PlayerData.sendPacket(holder, true);
     }
 
     public static boolean isArrow(Material type)
